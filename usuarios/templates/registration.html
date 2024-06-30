@@ -1,0 +1,124 @@
+{%extends "base_usuarios.html"%}{%block tittle%}Registrarse{%endblock%}
+{%block content%}
+{%load static%}
+<form action="" method="post">
+<div class="container">
+  <div class="row mt-3">
+    <div class="col-12 col-md-6">
+      <div class="row g-3">
+        <div class="col-12 my-3">
+          <label>
+            <h1>Registro</h1>
+          </label>
+        </div>
+            <div class="col-12">
+              <label for="inputRut" class="form-label">Rut</label>
+              <input type="text" class="form-control" id="inputRut" maxlength="12" placeholder="ejemplo: 12.345.678-9">
+            </div>
+            <div class="col-md-6">
+              <label for="inputNombre" class="form-label">Nombre</label>
+              <input type="text" class="form-control" id="inputNombre">
+            </div>
+            <div class="col-md-6">
+              <label for="inputApellido" class="form-label">Apellido</label>
+              <input type="text" class="form-control" id="inputApellido">
+            </div>
+            <div class="col-12">
+              <label for="inputEmail" class="form-label">Email</label>
+              <input type="email" class="form-control" id="inputEmail">
+            </div>
+            <div class="col-12">
+              <label for="inputRegion" class="form-label">Región</label>
+              <select id="inputRegion" class="form-select">
+                <option selected disabled>Elige...</option>
+                <option>Región de Arica y Parinacota</option>
+                <option>Región de Tarapacá</option>
+                <option>Región de Antofagasta</option>
+                <option>Región de Atacama</option>
+                <option>Región de Coquimbo</option>
+                <option>Región de Valparaíso</option>
+                <option>Región Metropolitana de Santiago</option>
+                <option>Región del Libertador General Bernardo O'Higgins</option>
+                <option>Región del Maule</option>
+                <option>Región de Ñuble</option>
+                <option>Región del Biobío</option>
+                <option>Región de La Araucanía</option>
+                <option>Región de Los Ríos</option>
+                <option>Región de Los Lagos</option>
+                <option>Región de Aysén del General Carlos Ibáñez del Campo</option>
+                <option>Región de Magallanes y de la Antártica Chilena</option>
+              </select>
+            </div>
+            <div class="col-12 col-md-4">
+              <label for="inputFechanacimiento" class="form-label">Fecha de nacimiento</label>
+              <input type="date" class="form-control" id="inputFechanacimiento" max="{{ max_date }}">
+            </div>
+            <div class="col-12 col-md-5">
+              <label for="inputEducacion" class="form-label">Grado de Educación</label>
+              <select id="inputEducacion" class="form-select">
+                <option selected disabled>Elige...</option>
+                <option>Sin educación</option>
+                <option>Educación Preescolar</option>
+                <option>Educación Básica</option>
+                <option>Educación Media</option>
+                <option>Educación Superior</option>
+              </select>
+            </div>
+            <div class="col-12 mb-3">
+              <button type="submit" class="btnEnviar btn btn-dark float-end">Registrarse</button>
+            </div>
+      </div>
+    </div>
+    <div class="col-12 col-md-6">
+      <div class="row g-3">
+        <div class="col-12 my-3">
+          <label>
+            <h1>Ventajas de unirte a nosotros</h1>
+          </label>
+        </div>
+        <div class="col-12">
+          <label class="beneficioslb">
+            <i class="bi bi-bell" style="font-size: 3em;"></i>
+            <span class="beneficios">Alertas instantáneas sobre ofertas y pedidos.</span>
+          </label>
+        </div>
+        <div class="col-12">
+          <label class="beneficioslb">
+            <i class="bi bi-floppy" style="font-size: 3em;"></i>
+            <span class="beneficios">Guarda tus artículos favoritos.</span>
+          </label>
+        </div>
+        <div class="col-12">
+          <label class="beneficioslb">
+            <i class="bi bi-wallet2" style="font-size: 3em;"></i>
+            <span class="beneficios">Vincula tus formas de pago preferidas.</span>
+          </label>
+        </div>
+        <div class="col-12">
+          <label class="beneficioslb">
+            <i class="bi bi-tag" style="font-size: 3em;"></i>
+            <span class="beneficios">Acceso a ventas y descuentos exclusivos.</span>
+          </label>
+        </div>
+        <div class="col-12">
+          <label class="beneficioslb">
+            <i class="bi bi-receipt-cutoff" style="font-size: 3em;"></i>
+            <span class="beneficios">Registro fácil de tus compras.</span>
+          </label>
+        </div>
+        <div class="col-12">
+          <label class="beneficioslb">
+            <i class="bi bi-percent" style="font-size: 3em;"></i>
+            <span class="beneficios">Gana puntos y obtén descuentos.</span>
+          </label>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="
+  crossorigin="anonymous"></script>
+<script src="{%static 'js/app.js'%}"></script>
+<script src="{%static 'js/validaciones.js'%}"></script>
+</form>
+{%endblock%}
