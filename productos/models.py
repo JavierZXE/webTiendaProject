@@ -1,6 +1,5 @@
 from django.db import models
 import shortuuid
-from carro.models import Carro
 
 # Create your models here.
 
@@ -20,7 +19,7 @@ class Marca(models.Model):
     nombre = models.CharField(unique=True, max_length=100)
     activo = models.BooleanField()
     
-    def __str_(self):
+    def __str__(self):
         return self.nombre
     
     class Meta:
@@ -29,9 +28,9 @@ class Marca(models.Model):
         ordering = ['nombre']
 
 class Producto(models.Model):
-    categoria = models.ForeignKey('Categoria', on_delete=models.CASCADE, verbose_name='Categoría')
-    imagen = models.ImageField(verbose_name='Imagen')
-    marca = models.CharField(max_length=50, verbose_name='Marca')
+    categoria = models.ForeignKey(Categoria, on_delete=models.CASCADE, verbose_name='Categoría')
+    imagen = models.ImageField(upload_to='productos/', null=True, blank=True, verbose_name='Imagen')
+    marca = models.ForeignKey(Marca, on_delete=models.CASCADE, verbose_name="Marca")
     descripcion = models.CharField(max_length=100,verbose_name='Descripción')
     precio = models.IntegerField(verbose_name='Precio')
     stock = models.IntegerField(verbose_name='Stock')
@@ -55,22 +54,3 @@ class Producto(models.Model):
         verbose_name = 'Producto'
         verbose_name_plural = 'Productos'
         ordering = ['categoria', 'marca', 'descripcion']
-
-      
-class CarroProducto(models.Model):
-    carro = models.ForeignKey(Carro, on_delete=models.CASCADE, related_name='productos', verbose_name='Carro')
-    producto = models.ForeignKey(Producto, on_delete=models.CASCADE, verbose_name='Producto')
-    cantidad = models.PositiveIntegerField(default=1, verbose_name='Cantidad')
-    precio_unitario = models.DecimalField(max_digits=10, decimal_places=2, verbose_name='Precio Unitario')
-
-    def __str__(self):
-        return f"{self.cantidad} x {self.producto.marca} ({self.producto.descripcion}) en el carrito de {self.carrito.usuario.nombre}"
-    
-    class Meta:
-        verbose_name = 'Producto en Carro'
-        verbose_name_plural = 'Productos en Carro'
-        unique_together = ('carro', 'producto')
-
-    def save(self, *args, **kwargs):
-        self.precio_unitario = self.producto.precio
-        super().save(*args, **kwargs)
