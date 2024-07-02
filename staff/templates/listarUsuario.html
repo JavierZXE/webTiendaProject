@@ -1,0 +1,33 @@
+{%extends "base_staff.html"%}{%block tittle%}Usuarios{%endblock%}
+{%block titulolista%}Lista de Usuarios{%endblock%}
+{%block urlboton%}{%url 'guardarUsuario'%}{%endblock%}
+{%block content%}
+<table class="table table-responsive table-striped">
+    <tr>
+        <th><label>Rut</label></th>
+        <th><label>Nombre</label></th>
+        <th><label>Apellido</label></th>
+        <th><label>Correo</label></th>
+        <th><label>Region</label></th>
+        <th><label>Fecha de Nacimiento</label></th>
+        <th><label>Tipo de Usuario</label></th>
+        <th><label>Educacion</label></th>
+        <th><label>Modificar</label></th>
+        <th><label>Eliminar</label></th>
+    </tr>
+{% for item in listado %}
+    <tr>
+        <td><label>{{ item.rut }}</label></td>
+        <td><label>{{ item.nombre | capfirst }}</label></td>
+        <td><label>{{ item.apellido | capfirst }}</label></td>
+        <td><label>{{ item.correo }}</label></td>
+        <td><label>{{ item.region }}</label></td>
+        <td><label>{{ item.fecha_nacimiento }}</label></td>
+        <td><label>{{ item.tipo_usuario }}</label></td>
+        <td><label>{{ item.educacion }}</label></td>
+        <td><a href="{% url 'buscarUsuario' pk=item.rut %}" class="btn btn-secondary"><i class="bi bi-pencil-square"></i></a></td>
+        <td><a href="{% url 'eliminarUsuario' pk=item.rut %}" class="btn btn-danger"><i class="bi bi-trash"></i></a></td>
+    </tr>
+{% endfor %}
+</table>
+{%endblock%}

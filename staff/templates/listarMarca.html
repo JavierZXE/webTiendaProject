@@ -1,0 +1,23 @@
+{%extends "base_staff.html"%}{%block tittle%}Marcas{%endblock%}
+{%block titulolista%}Lista de Marcas{%endblock%}
+{%block urlboton%}{%url 'guardarMarca'%}{%endblock%}
+{%block content%}
+<table class="table table-responsive table-striped">
+    <tr>
+        <th><label>id</label></th>
+        <th><label>Nombre</label></th>
+        <th><label>Activo</label></th>
+        <th><label>Modificar</label></th>
+        <th><label>Eliminar</label></th>
+    </tr>
+{% for item in listado %}
+    <tr>
+        <td><label>{{ item.pk }}</label></td>
+        <td><label>{{ item.nombre | capfirst }}</label></td>
+        <td><label>{{ item.activo |yesno:"Si,No" }}</label></td>
+        <td><a href="{% url 'buscarMarca' pk=item.id %}" class="btn btn-secondary"><i class="bi bi-pencil-square"></i></a></td>
+        <td><a href="{% url 'eliminarMarca' pk=item.id %}" class="btn btn-danger"><i class="bi bi-trash"></i></a></td>
+    </tr>
+{% endfor %}
+</table>
+{%endblock%}

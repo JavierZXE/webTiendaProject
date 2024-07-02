@@ -1,0 +1,87 @@
+{%extends "base_staff.html"%}{%block tittle%}Guardar Usuario{%endblock%}
+{%block upperpartlista%}{%endblock%}
+{%block content%}
+{% load static %}
+<div class="row mt-3">
+    <h1 class="text-center"><label>Guardar Usuario</label></h1>
+</div>
+<form id="usuarioForm" action="{% url 'guardarUsuario' %}" method="POST">
+{% csrf_token %}
+<div class="col-12">
+  <label for="inputRut" class="form-label">Rut</label>
+  <input type="text" class="form-control" id="inputRut" value="{{item.rut}}" name="txtRut" maxlength="12" placeholder="ejemplo: 12.345.678-9">
+</div>
+<div class="col-md-6">
+  <label for="inputNombre" class="form-label">Nombre</label>
+  <input type="text" class="form-control" value="{{item.nombre}}" id="inputNombre" name="txtNombre">
+</div>
+<div class="col-md-6">
+  <label for="inputApellido" class="form-label">Apellido</label>
+  <input type="text" class="form-control" value="{{item.apellido}}" id="inputApellido" name="txtApellido">
+</div>
+<div class="col-12">
+    <label for="inputTipoUsuario">Tipo de usuario:</label>
+    <select name="txtTipo_usuario" id="inputTipoUsuario" class="form-select" required>
+        <option selected disabled>Elige...</option>
+        {% for tipousuario in tipousuario %}
+            {% if tipousuario.id == tipo_usuario_id %}
+                <option value="{{ tipousuario.id }}" selected>{{ tipousuario.nombre }}</option>
+            {% else %}
+                <option value="{{ tipousuario.id }}">{{ tipousuario.nombre }}</option>
+            {% endif %}
+        {% endfor %}
+    </select>
+</div>
+<div class="col-12">
+  <label for="inputEmail" class="form-label">Email</label>
+  <input type="email" class="form-control" value="{{item.correo}}" id="inputEmail" name="txtCorreo">
+</div>
+<div class="col-12">
+  <label for="inputRegion" class="form-label">Región</label>
+  <select id="inputRegion" class="form-select" name="txtRegion">
+    <option selected disabled>Elige...</option>
+    <option {% if region == "Región de Arica y Parinacota" %}selected{% endif %}>Región de Arica y Parinacota</option>
+    <option {% if region == "Región de Tarapacá" %}selected{% endif %}>Región de Tarapacá</option>
+    <option {% if region == "Región de Antofagasta" %}selected{% endif %}>Región de Antofagasta</option>
+    <option {% if region == "Región de Atacama" %}selected{% endif %}>Región de Atacama</option>
+    <option {% if region == "Región de Coquimbo" %}selected{% endif %}>Región de Coquimbo</option>
+    <option {% if region == "Región de Valparaíso" %}selected{% endif %}>Región de Valparaíso</option>
+    <option {% if region == "Región Metropolitana de Santiago" %}selected{% endif %}>Región Metropolitana de Santiago</option>
+    <option {% if region == "Región del Libertador General Bernardo O'Higgins" %}selected{% endif %}>Región del Libertador General Bernardo O'Higgins</option>
+    <option {% if region == "Región del Maule" %}selected{% endif %}>Región del Maule</option>
+    <option {% if region == "Región de Ñuble" %}selected{% endif %}>Región de Ñuble</option>
+    <option {% if region == "Región del Biobío" %}selected{% endif %}>Región del Biobío</option>
+    <option {% if region == "Región de La Araucanía" %}selected{% endif %}>Región de La Araucanía</option>
+    <option {% if region == "Región de Los Ríos" %}selected{% endif %}>Región de Los Ríos</option>
+    <option {% if region == "Región de Los Lagos" %}selected{% endif %}>Región de Los Lagos</option>
+    <option {% if region == "Región de Aysén del General Carlos Ibáñez del Campo" %}selected{% endif %}>Región de Aysén del General Carlos Ibáñez del Campo</option>
+    <option {% if region == "Región de Magallanes y de la Antártica Chilena" %}selected{% endif %}>Región de Magallanes y de la Antártica Chilena</option>
+  </select>
+</div>
+<div class="col-12 col-md-4">
+  <label for="inputFechanacimiento" class="form-label">Fecha de nacimiento</label>
+  <input type="date" class="form-control" value="{{ fecha_nacimiento }}" id="inputFechanacimiento" name="txtFecha_nacimiento">
+</div>
+<div class="col-12 col-md-5">
+  <label for="inputEducacion" class="form-label">Grado de Educación</label>
+  <select id="inputEducacion" class="form-select" name="txtEducacion">
+    <option selected disabled>Elige...</option>
+    <option {% if educacion == "Sin educación" %}selected{% endif %}>Sin educación</option>
+    <option {% if educacion == "Educación Preescolar" %}selected{% endif %}>Educación Preescolar</option>
+    <option {% if educacion == "Educación Básica" %}selected{% endif %}>Educación Básica</option>
+    <option {% if educacion == "Educación Media" %}selected{% endif %}>Educación Media</option>
+    <option {% if educacion == "Educación Superior" %}selected{% endif %}>Educación Superior</option>
+  </select>
+</div>
+<div class="col-12 mb-3">
+  <label for="inputContrasenna" class="form-label">Contraseña</label>
+  <input type="password" value="{{item.contrasenna}}" class="form-control" id="inputContrasenna" name="txtContrasenna">
+</div>
+<div class="col-12 mb-3">
+  <button type="submit" class="btn btn-dark float-end">Guardar</button>
+</div>
+</form>
+<script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="
+    crossorigin="anonymous"></script>
+<script src="{% static 'js/validacion_usuario.js' %}"></script>
+{%endblock%}

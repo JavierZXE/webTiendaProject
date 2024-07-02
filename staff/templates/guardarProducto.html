@@ -1,0 +1,98 @@
+{% extends "base_staff.html" %}
+{% block upperpartlista %}{% endblock %}
+{% block tittle %}Guardar Producto {% endblock %}
+{% block content %}
+{% load static %}
+<div class="row mt-3">
+    <div class="col-12 col-md-6">
+        <div class="row g-3">
+            <div class="col-12 my-4">
+                <label><h1>Producto</h1></label>
+            </div>
+            <form id="productoForm" action="{% url 'guardarProducto' %}" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <input type="hidden" name="txtId" class="form-control" value="{{ item.id }}">
+            <input type="hidden" name="txtBarcode" class="form-control" value="{{ item.barcode }}">
+            <div class="col-12 my-3">
+                <label for="inputCategoria" class="form-label">Categoria</label>
+                <select name="txtCategoria" class="form-control" id="inputCategoria">
+                    <option selected disabled>Elige...</option>
+                    {% for categoria in categorias %}
+                        {% if categoria.id == categoria_id_seleccionada %}
+                            <option value="{{ categoria.id }}" selected>{{ categoria.nombre }}</option>
+                        {% else %}
+                            <option value="{{ categoria.id }}">{{ categoria.nombre }}</option>
+                        {% endif %}
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="col-12 my-3">
+                <label for="inputImagen" class="form-label">Imagen</label>
+                <input type="file" name="txtImagen" class="form-control" id="inputImagen">
+            </div>
+            <div class="col-12 my-3">
+                <label for="inputMarca" class="form-label">Marca</label>
+                <select name="txtMarca" class="form-control" id="inputMarca">
+                    <option selected disabled>Elige...</option>
+                    {% for marca in marcas %}
+                        {% if marca.id == marca_id_seleccionada %}
+                            <option value="{{ marca.id }}" selected>{{ marca.nombre }}</option>
+                        {% else %}
+                            <option value="{{ marca.id }}">{{ marca.nombre }}</option>
+                        {% endif %}
+                    {% endfor %}
+                </select>
+            </div>
+                <div class="col-12 my-3">
+                    <label for="inputDescripcion" class="form-label">Descripcion</label>
+                    <input type="text" name="txtDescripcion" id="inputDescripcion" class="form-control" value="{{ item.descripcion }}">
+                </div>
+            <div class="col-12 my-3">
+                <label for="inputPrecio" class="form-label">Precio</label>
+                <input type="number" name="txtPrecio" id="inputPrecio" class="form-control" value="{{ item.precio }}">
+            </div>
+            <div class="col-12 my-3">
+                <label for="inputStock" class="form-label">Stock</label>
+                <input type="number" name="txtStock" id="inputStock" class="form-control" value="{{ item.stock }}">
+            </div>
+            <div class="col-12 my-4">
+                <button type="button" class="btnVista btn btn btn-dark">Vista Previa</button>
+                <button type="submit" name="btnGuardar" class="btnAnnadir btn btn-dark float-end">Guardar</button>
+            </div>
+            </form>
+        </div>
+    </div>
+    <div class="col-12 col-md-3">
+        <div class="row g-3">
+            <div class="col-12 my-4">
+                <label><h1>Vista Imagen</h1></label>
+            </div>
+            <div class="vistaprevia col-12 d-flex justify-content-center">
+                <img id="vistaPreviaImagen" src="{% if item.imagen %}{{ item.imagen.url }}{% endif %}" alt="Vista Previa" style="max-width: 200px; margin-top: 10px;">
+            </div>
+        </div>
+    </div>
+    <div class="col-12 col-md-3">
+        <div class="row g-3">
+            <div class="col-12 my-4">
+                <label><h1>Ejemplo</h1></label>
+            </div>
+            <div class="col-12 d-flex justify-content-center">
+                <div class="card mb-4" style="width: 18rem;">
+                    <img src="{% static 'img/ejemplo.jpeg' %}" class="card-img-top" alt="...">
+                    <div class="card-body">
+                      <h5 class="card-title">Marca</h5>
+                      <p class="card-text">Breve descripcion del producto</p>
+                      <p class="precio">$99.999</p>
+                      <p class="stock">Stock: <span class="stock-quantity">??</span></p>
+                      <button type="button" class="agregar btn btn-dark disabled">Añadir al carro</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="
+    crossorigin="anonymous"></script>
+<script src="{% static 'js/validacion_producto1.js' %}"></script>
+{% endblock %}

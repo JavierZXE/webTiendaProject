@@ -1,0 +1,33 @@
+{%extends "base_staff.html"%}{%block tittle%}Productos{%endblock%}
+{%block titulolista%}Lista de Productos{%endblock%}
+{%block urlboton%}{%url 'guardarProducto'%}{%endblock%}
+{%block content%}
+<table class="table table-responsive table-striped">
+    <tr>
+        <th><label>id</label></th>
+        <th><label>Imagen</label></th>
+        <th><label>Categoría</label></th>
+        <th><label>Marca</label></th>
+        <th><label>Descripción</label></th>
+        <th><label>Precio</label></th>
+        <th><label>Stock</label></th>
+        <th><label>Codigo</label></th>
+        <th><label>Modificar</label></th>
+        <th><label>Eliminar</label></th>
+    </tr>
+{% for item in listado %}
+    <tr>
+        <td><label>{{ item.pk }}</label></td>
+        <td><img src="{{ item.imagen.url }}" alt="Imagen del producto" style="max-width: 100px; max-height: 100px;"></td>
+        <td><label>{{ item.categoria | capfirst }}</label></td>
+        <td><label>{{ item.marca | capfirst }}</label></td>
+        <td><label>{{ item.descripcion | capfirst }}</label></td>
+        <td><label>{{ item.precio }}</label></td>
+        <td><label>{{ item.stock }}</label></td>
+        <td><label>{{ item.barcode }}</label></td>
+        <td><a href="{% url 'buscarProducto' pk=item.id %}" class="btn btn-secondary"><i class="bi bi-pencil-square"></i></a></td>
+        <td><a href="{% url 'eliminarProducto' pk=item.id %}" class="btn btn-danger"><i class="bi bi-trash"></i></a></td>
+    </tr>
+{% endfor %}
+</table>
+{%endblock%}
