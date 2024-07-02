@@ -1,47 +1,22 @@
 from django.db import models
-from django.utils import timezone
 from usuarios.models import Usuario
-# Create your models here.
+from productos.models import Producto
 
-class Carro(models.Model):
-    usuario = models.OneToOneField(Usuario, on_delete=models.CASCADE, verbose_name='Usuario')
-    fecha_creacion = models.DateTimeField(default=timezone.now, verbose_name='Fecha de Creación')
-    completado = models.BooleanField(default=False, verbose_name='Completado')
+class Carrito(models.Model):
+    usuario = models.OneToOneField(Usuario, on_delete=models.CASCADE, primary_key=True, verbose_name='Usuario')
+    creado = models.DateTimeField(auto_now_add=True, verbose_name='Fecha de Creación')
+    actualizado = models.DateTimeField(auto_now=True, verbose_name='Última Actualización')
 
     def __str__(self):
-        return f"Carrito de {self.usuario.nombre} - {'Completado' if self.completado else 'Activo'}"
-    
+        return f'Carrito de {self.usuario.nombre} {self.usuario.apellido}'
+
+class CarritoItem(models.Model):
+    carrito = models.ForeignKey(Carrito, on_delete=models.CASCADE, related_name='items', verbose_name='Carrito')
+    producto = models.ForeignKey(Producto, on_delete=models.CASCADE, verbose_name='Producto')
+    cantidad = models.PositiveIntegerField(default=1, verbose_name='Cantidad')
+
+    def __str__(self):
+        return f'{self.cantidad} x {self.producto.descripcion} en el carrito de {self.carrito.usuario.nombre} {self.carrito.usuario.apellido}'
+
     class Meta:
-        verbose_name = 'Carro'
-        verbose_name_plural = 'Carros'
-
-    def agregar_producto(self, producto, cantidad=1):
-        from productos.models import CarroProducto
-
-        carro_producto, created = CarroProducto.objects.get_or_create(
-            carrito=self,
-            producto=producto,
-            defaults={'cantidad': cantidad, 'precio_unitario': producto.precio}
-        )
-        if not created:
-            carro_producto.cantidad += cantidad
-            carro_producto.save()
-
-    def eliminar_producto(self, producto):
-        from productos.models import CarroProducto 
-        
-        try:
-            carro_producto = CarroProducto.objects.get(carrito=self, producto=producto)
-            carro_producto.delete()
-        except CarroProducto.DoesNotExist:
-            pass
-
-    def actualizar_cantidad(self, producto, cantidad):
-        from productos.models import CarroProducto
-        
-        try:
-            carro_producto = CarroProducto.objects.get(carrito=self, producto=producto)
-            carro_producto.cantidad = cantidad
-            carro_producto.save()
-        except CarroProducto.DoesNotExist:
-            pass
+        unique_together = ('carrito', 'producto')

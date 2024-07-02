@@ -1,0 +1,24 @@
+{%extends "base_productos.html"%}{%block tittle%}Tienda{%endblock%}
+{%block upperpart%}{%endblock%}
+{%block content%}
+<h2>Tu Carrito de Compras</h2>
+<table>
+    <tr>
+        <th>Producto</th>
+        <th>Cantidad</th>
+        <th>Precio</th>
+        <th>Total</th>
+        <th>Acciones</th>
+    </tr>
+    {% for item in items %}
+    <tr>
+        <td>{{ item.producto.descripcion }}</td>
+        <td>{{ item.cantidad }}</td>
+        <td>{{ item.producto.precio }}</td>
+        <td>{{ item.cantidad|multiply:item.producto.precio }}</td>
+        <td><a href="{% url 'eliminar_del_carrito' item.id %}">Eliminar</a></td>
+    </tr>
+    {% endfor %}
+</table>
+<p>Total: {{ carrito.items.aggregate(total=models.Sum(F('cantidad') * F('producto__precio'), output_field=models.IntegerField())) }}</p>
+{% endblock %}
