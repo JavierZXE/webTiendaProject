@@ -1,0 +1,31 @@
+{%extends "base_usuarios.html"%}
+{% block tittle %}Inicio de Sesion{% endblock %}
+{%block content%}
+<div class="container">
+    <div class="row mt-3">
+        <div class="col-12 col-md-6">
+            <div class="row g-3">
+                <div class="col 12 my-5">
+                    <label>
+                        <h1>Iniciar sesión</h1>
+                    </label>
+                </div>
+                <form action="{% url 'login'%}" method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                <div class="col-12 mt-5">
+                    <label for="inputEmail" class="form-label">Email</label>
+                    <input type="email" class="form-control" id="inputEmailLogin" name="correo">
+                </div>
+                <div class="col-12 my-3">
+                    <label for="inputLogin" class="form-label">Contraseña</label>
+                    <input type="password" class="form-control" id="inputContrasennaLogin" name="contrasenna">
+                </div>
+                <div class="col-12 my-5">
+                    <button type="submit" class="btn btn-dark float-end">Iniciar sesión</button>
+                </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{%endblock%}

@@ -66,12 +66,12 @@ class Usuario(models.Model):
         choices=EDUCACION_CHOICES,
         verbose_name='Nivel de Educación'
     )
-    contraseña = models.CharField(max_length=128, verbose_name='Contraseña')
-
+    contrasenna = models.CharField(max_length=128, verbose_name='Contraseña')
+    
     def save(self, *args, **kwargs):
-        self.contraseña = make_password(self.contraseña)
+        self.contrasenna = make_password(self.contrasenna)
         super(Usuario, self).save(*args, **kwargs)
-        
+    
     def __str__(self):
         return f'{self.nombre} {self.apellido} ({self.rut})'
 
