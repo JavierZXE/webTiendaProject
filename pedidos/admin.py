@@ -1,6 +1,5 @@
 from django.contrib import admin
-from .models import FormaPago, Pedido
+from .models import FormaPago
 # Register your models here.
 
 admin.site.register(FormaPago)
-admin.site.register(Pedido)
