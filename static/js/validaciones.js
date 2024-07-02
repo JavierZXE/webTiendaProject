@@ -62,8 +62,6 @@ $('.btnEnviar').click(function(e) {
         return;
     }
 
-    alert("Formulario enviado con éxito. Datos enviados:\nRut: " + rut + "\nNombre: " + nombre + "\nApellido: " + apellido + "\nEmail: " + email + "\nRegión: " + region + "\nFecha de Nacimiento: " + fechaNacimiento + "\nGrado de Educación: " + gradoEducacion);
-
     $('#inputRut').val('');
     $('#inputNombre').val('');
     $('#inputApellido').val('');
@@ -71,6 +69,7 @@ $('.btnEnviar').click(function(e) {
     $('#inputRegion').val('');
     $('#inputFechanacimiento').val('');
     $('#inputEducacion').val('');
+    $('#inputContrasenna').val('');
 });
 
 $('.btnAnnadir').click(function(e) {
@@ -117,8 +116,6 @@ $('.btnAnnadir').click(function(e) {
         $('#inputStock').focus();
         return;
     }
-
-    alert("Formulario enviado con éxito. Datos enviados:\nCategoria: "+ categoria +"\nImagen: "+ imagen +"\nMarca: "+ marca +"\nDescripcion: "+ descripcion +"\nPrecio: "+ precio +"\nStock: "+ stock);
 
     $('inputCategoria').val('');
     $('inputImagen').val('');
